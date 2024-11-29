@@ -9,9 +9,9 @@ export default defineConfig({
     lib: {
       // Could also be a dictionary or array of multiple entry points
       entry: resolve(__dirname, "src/index.ts"),
-      name: "BrianComponentLibrary",
+      name: "ZeroboardUI",
       // the proper extensions will be added
-      fileName: "brian-component-lib",
+      fileName: "zui",
     },
     rollupOptions: {
       // make sure to externalize deps that shouldn't be bundled
