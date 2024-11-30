@@ -1,4 +1,4 @@
-export function classNames(...classes: unknown[string]) {
+export function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
 
@@ -18,11 +18,11 @@ export const hexToRgb = (hex: string) => {
     : null
 }
 
-export const getSlotsChildren = (slots) => {
+export const getSlotsChildren = (slots: any) => {
   let children = slots.default?.()
   if (children.length) {
     children = children
-      .flatMap((c) => {
+      .flatMap((c: any) => {
         if (typeof c.type === 'symbol') {
           if (typeof c.children === 'string') {
             // `v-if="false"` or commented node

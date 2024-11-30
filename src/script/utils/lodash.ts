@@ -5,7 +5,7 @@ export function omit<T extends Record<string, unknown>, K extends keyof T>(
   const result = { ...object }
 
   for (const key of keysToOmit) {
-    delete result[key]
+    delete result[key as keyof T]
   }
 
   return result
@@ -30,7 +30,7 @@ export function get(
       return defaultValue
     }
 
-    result = result[key]
+    result = (result as Record<string, unknown>)[key]
   }
 
   return result !== undefined ? result : defaultValue
