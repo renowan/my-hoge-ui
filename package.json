@@ -15,7 +15,7 @@
       "require": "./dist/script/utils.cjs"
     },
     "./style.css": "./dist/style.css",
-    "./assets/z-table.css": "./src/assets/css/z-table.css"
+    "./assets/css/z-table.css": "./src/assets/css/z-table.css"
   },
   "types": "./dist/index.d.ts",
   "scripts": {
