@@ -10,7 +10,8 @@
       "import": "./dist/zui.js",
       "require": "./dist/zui.umd.cjs"
     },
-    "./style.css": "./dist/style.css"
+    "./style.css": "./dist/style.css",
+    "./z-table.css": "./src/assets/css/z-table.css"
   },
   "types": "./dist/index.d.ts",
   "scripts": {
