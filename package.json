@@ -1,6 +1,6 @@
 {
   "name": "zui",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "module",
   "files": ["dist"],
   "main": "./dist/zui.umd.cjs",
@@ -10,7 +10,10 @@
       "import": "./dist/zui.js",
       "require": "./dist/zui.umd.cjs"
     },
-    "./script/utils/index.ts": "./src/script/utils/index.ts",
+    "./utils": {
+      "import": "./dist/utils.js",
+      "require": "./dist/utils.cjs"
+    },
     "./style.css": "./dist/style.css",
     "./z-table.css": "./src/assets/css/z-table.css"
   },
