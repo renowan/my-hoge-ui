@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import { resolve } from "path";
 import vue from "@vitejs/plugin-vue";
+import fs from 'fs';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -11,13 +12,12 @@ export default defineConfig({
       entry: [
         resolve(__dirname, "src/index.ts"),
         resolve(__dirname, "src/script/utils/index.ts"),
-        resolve(__dirname, "src/assets/css/z-table.css"),
+        // resolve(__dirname, "src/assets/css/z-table.css"),
       ],
       name: "ZeroboardUI",
       // the proper extensions will be added
       fileName: (format, entryName) => {
-        if (entryName === "index") return `zui.${format}`;
-        if (entryName === "z-table") return `zui.z-table.css`;
+        if (entryName === 'index') return `zui.${format}`;
         return `${entryName}.${format}`;
       },
     },
@@ -32,11 +32,24 @@ export default defineConfig({
           vue: "Vue",
         },
         // CSSファイルの出力を明示的に設定
-        assetFileNames: (chunkInfo) => {
-          if (chunkInfo.names.includes("z-table")) return "z-table.css";
-          return "[name].[ext]";
-        },
+        // assetFileNames: (chunkInfo) => {
+        //   console.log('chunkInfo:', chunkInfo);
+        //   if (chunkInfo.names.includes("z-table")) return "z-table.css";
+        //   return "[name].[ext]";
+        // },
       },
+      plugins: [
+        {
+          name: 'copy-css',
+          generateBundle(options, bundle) {
+            this.emitFile({
+              type: 'asset',
+              fileName: 'z-table.css',
+              source: fs.readFileSync(resolve(__dirname, "src/assets/css/z-table.css"), 'utf-8')
+            });
+          }
+        }
+      ]
     },
   },
 });
