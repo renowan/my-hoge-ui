@@ -4,4 +4,4 @@ import ZAlert from "./components/Z/ZAlert.vue";
 
 export { FccButton, ZButton, ZAlert };
 
-// export * from "./script/utils";
+export * from "./script/utils";
