@@ -1,11 +1,21 @@
 import { defineConfig } from "vite";
 import { resolve } from "path";
 import vue from "@vitejs/plugin-vue";
-import fs from "fs";
+import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [
+    vue(),
+    viteStaticCopy({
+      targets: [
+        {
+          src: 'src/assets/*',
+          dest: 'assets'
+        }
+      ]
+    })
+  ],
   build: {
     lib: {
       // Could also be a dictionary or array of multiple entry points
@@ -25,21 +35,21 @@ export default defineConfig({
           vue: "Vue",
         },
       },
-      plugins: [
-        {
-          name: "copy-css",
-          generateBundle(options, bundle) {
-            this.emitFile({
-              type: "asset",
-              fileName: "assets/css/z-table.css",
-              source: fs.readFileSync(
-                resolve(__dirname, "src/assets/css/z-table.css"),
-                "utf-8"
-              ),
-            });
-          },
-        },
-      ],
+      // plugins: [
+      //   {
+      //     name: "copy-css",
+      //     generateBundle(options, bundle) {
+      //       this.emitFile({
+      //         type: "asset",
+      //         fileName: "assets/css/z-table.css",
+      //         source: fs.readFileSync(
+      //           resolve(__dirname, "src/assets/css/z-table.css"),
+      //           "utf-8"
+      //         ),
+      //       });
+      //     },
+      //   },
+      // ],
     },
   },
 });
