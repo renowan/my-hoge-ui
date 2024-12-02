@@ -14,7 +14,7 @@
     },
     "./style.css": "./dist/style.css",
     "./assets/css/z-table.css": "./src/assets/css/z-table.css",
-    "./assets/fontello/fontello.css": "./src/assets/fontello/fontello.css"
+    "./assets/fontello/fontello.css": "./src/assets/fontello/css/fontello.css"
   },
   "types": "./dist/index.d.ts",
   "scripts": {
