@@ -35,21 +35,6 @@ export default defineConfig({
           vue: "Vue",
         },
       },
-      // plugins: [
-      //   {
-      //     name: "copy-css",
-      //     generateBundle(options, bundle) {
-      //       this.emitFile({
-      //         type: "asset",
-      //         fileName: "assets/css/z-table.css",
-      //         source: fs.readFileSync(
-      //           resolve(__dirname, "src/assets/css/z-table.css"),
-      //           "utf-8"
-      //         ),
-      //       });
-      //     },
-      //   },
-      // ],
     },
   },
 });

@@ -12,12 +12,7 @@
       "import": "./dist/zui.js",
       "require": "./dist/zui.umd.cjs"
     },
-    "./script/utils": {
-      "import": "./dist/script/utils.js",
-      "require": "./dist/script/utils.cjs"
-    },
-    "./style.css": "./dist/style.css",
-    "./assets/css/z-table.css": "./src/assets/css/z-table.css"
+    "./style.css": "./dist/style.css"
   },
   "types": "./dist/index.d.ts",
   "scripts": {
