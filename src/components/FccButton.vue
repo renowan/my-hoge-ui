@@ -17,7 +17,6 @@ defineProps<{ text: string }>()
   border-style: solid;
   color: #1b1b32;
   display: block;
-  margin-bottom: 0;
   font-weight: normal;
   text-align: center;
   -ms-touch-action: manipulation;

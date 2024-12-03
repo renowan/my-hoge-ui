@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import FccButton from './components/FccButton.vue'
 import ZAlert from './components/Z/ZAlert.vue'
-// import { FccButton } from 'test-component-lib'
-// import "test-component-lib/style.css"
 </script>
 
 <template>
-  <FccButton text="Run the Tests" />
-  <ZAlert>jlkjjl</ZAlert>
+  <FccButton class="mb-4" text="Run the Tests" />
+  <ZAlert>is alert</ZAlert>
+  <div class="test-hoge">hohoho</div>
 </template>
 
 <style scoped>
