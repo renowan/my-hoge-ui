@@ -1,4 +1,5 @@
 import forms from '@tailwindcss/forms'
+import {zuiTokens} from './src/contants/zuiTokens'
 
 export default {
   content: [
@@ -12,15 +13,16 @@ export default {
   theme: {
     extend: {
       colors: {
-
+        ...zuiTokens.colors,
       },
     },
     fontFamily: {
+      ...zuiTokens.fontFamily.sans,
     },
   },
+  safelist: zuiTokens.safelist,
   plugins: [
     forms,
   ],
-
   darkMode: 'class',
 }

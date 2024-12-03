@@ -1,3 +1,4 @@
+import path from 'path';
 import { defineConfig } from "vite";
 import { resolve } from "path";
 import vue from "@vitejs/plugin-vue";
@@ -35,6 +36,13 @@ export default defineConfig({
           vue: "Vue",
         },
       },
+    },
+  },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src/'),
+      '~': path.resolve(__dirname, './src/'),
+      '#components': '/src/test/setup/components.ts',
     },
   },
 });
