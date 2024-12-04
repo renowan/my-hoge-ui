@@ -4,7 +4,7 @@ import ZIcon from "./components/Z/ZIcon.vue";
 import * as utils from "./components/Z/utils";
 import { zuiTokens } from "./contants/zuiTokens";
 
-export { ZButton, ZAlert, utils, zuiTokens };
+export { ZButton, ZAlert, ZIcon, utils, zuiTokens };
 
 export default {
   install: (app) => {
