@@ -14,7 +14,7 @@
     },
     "./style.css": "./dist/style.css",
     "./assets/css/z-table.css": "./dist/assets/css/z-table.css",
-    "./assets/fontello/css/fontello-over-write.css": "./dist/assets/fontello/css/fontello-over-write.css",
+    "./assets/css/fontello-over-write.css": "./dist/assets/css/fontello-over-write.css",
     "./assets/fontello/css/fontello.css": "./dist/assets/fontello/css/fontello.css"
   },
   "types": "./dist/index.d.ts",
