@@ -1,3 +1,41 @@
-.hoge-table {
-  color: red;
+/* z-sticky-table */
+.z-sticky-table {
+  @apply border-spacing-0 table-fixed w-full divide-y divide-gray-300;
+}
+
+.z-sticky-table thead th {
+  @apply sticky border-collapse top-0 z-[1] bg-gray-100 text-left rtl:text-right px-3 py-2 text-sm;
+}
+
+/* z-table */
+.z-table {
+  @apply min-w-full table-fixed divide-y divide-gray-300;
+}
+
+.z-table thead {
+  @apply bg-gray-100;
+}
+
+.z-table th {
+  @apply text-left rtl:text-right text-gray-900 font-semibold px-3 py-2 text-sm;
+}
+
+.z-table tbody {
+  @apply divide-y divide-gray-200;
+}
+
+.z-table td {
+  @apply text-gray-500 px-3 py-2 text-sm;
+}
+
+.z-table.sm th {
+  @apply px-2 py-1 text-xs;
+}
+
+.z-table.sm td {
+  @apply px-2 py-1 text-xs;
+}
+
+.z-table-striped tbody tr:nth-of-type(even) {
+  @apply bg-gray-50;
 }

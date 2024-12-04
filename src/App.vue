@@ -5,7 +5,8 @@ import ZAlert from './components/Z/ZAlert.vue'
 
 <template>
   <FccButton class="mb-4" text="Run the Tests" />
-  <ZAlert color="primary" class="mb-12">this is alert </ZAlert>
+  <ZAlert color="primary" class="mb-6">this is alert </ZAlert>
+  <ZAlert color="danger" class="mb-6">this is alert danger</ZAlert>
   <div class="test-hoge">hohoho</div>
 </template>
 
