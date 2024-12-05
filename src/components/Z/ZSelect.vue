@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts" setup>
-import { PropType } from 'vue'
+import { computed, PropType } from 'vue'
 import type { DropdownItem } from './types'
 import appConfig from './appConfig'
 import { classNames } from './utils'
@@ -110,7 +110,7 @@ const props = defineProps({
 const ui = computed(() => appConfig.ui.select)
 const emit = defineEmits(['update:modelValue', 'change'])
 
-const onInput = (event: InputEvent) => {
+const onInput = (event: Event) => {
   emit('update:modelValue', (event.target as HTMLInputElement).value)
 }
 
