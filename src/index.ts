@@ -2,6 +2,7 @@ import ZButton from "./components/Z/ZButton.vue";
 import ZAlert from "./components/Z/ZAlert.vue";
 import ZIcon from "./components/Z/ZIcon.vue";
 import ZSelect from "./components/Z/ZSelect.vue";
+import ZErrorMessage from "./components/Z/ZErrorMessage.vue";
 import * as utils from "./components/Z/utils";
 import { zuiTokens } from "./contants/zuiTokens";
 
@@ -13,5 +14,6 @@ export default {
     app.component("ZAlert", ZAlert);
     app.component("ZIcon", ZIcon);
     app.component("ZSelect", ZSelect);
+    app.component("ZErrorMessage", ZErrorMessage);
   },
 };
