@@ -33,7 +33,7 @@
 
 <script lang="ts" setup>
 import { computed, PropType } from 'vue'
-import type { DropdownItem } from './types'
+import type { DropdownItem, SelectSize, SelectColor, SelectVariant, SelectConfig } from './types'
 import appConfig from './appConfig'
 import { classNames } from './utils'
 
@@ -67,32 +67,24 @@ const props = defineProps({
     default: false,
   },
   size: {
-    type: String,
+    type: String as PropType<SelectSize>,
     default: () => appConfig.ui.select.default.size,
     validator(value: string) {
-      return Object.keys(appConfig.ui.select.size).includes(value)
+      return ['2xs', 'xs', 'sm', 'md', 'lg', 'xl'].includes(value)
     },
   },
   status: {
-    type: String,
+    type: String as PropType<SelectColor>,
     default: () => appConfig.ui.select.default.color,
     validator(value: string) {
-      return [
-        ...appConfig.ui.colors,
-        ...Object.keys(appConfig.ui.select.color),
-      ].includes(value)
+      return ['white', 'gray'].includes(value)
     },
   },
   variant: {
-    type: String,
+    type: String as PropType<SelectVariant>,
     default: () => appConfig.ui.select.default.variant,
     validator(value: string) {
-      return [
-        ...Object.keys(appConfig.ui.select.variant),
-        ...Object.values(appConfig.ui.select.color).flatMap((value) =>
-          Object.keys(value),
-        ),
-      ].includes(value)
+      return ['outline', 'none'].includes(value)
     },
   },
   errorMessage: {
@@ -107,7 +99,7 @@ const props = defineProps({
   },
 })
 
-const ui = computed(() => appConfig.ui.select)
+const ui = computed(() => appConfig.ui.select as unknown as SelectConfig)
 const emit = defineEmits(['update:modelValue', 'change'])
 
 const onInput = (event: Event) => {
@@ -115,9 +107,10 @@ const onInput = (event: Event) => {
 }
 
 const selectClass = computed(() => {
-  const variant =
-    ui.value.color?.[props.status as string]?.[props.variant as string] ||
+  const variant = 
+    ui.value.color[props.status]?.[props.variant] ||
     ui.value.variant[props.variant]
+
   return classNames(
     ui.value.base,
     ui.value.bgColor,
