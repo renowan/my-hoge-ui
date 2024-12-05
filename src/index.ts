@@ -7,7 +7,7 @@ import { zuiTokens } from "./contants/zuiTokens";
 export { ZButton, ZAlert, ZIcon, utils, zuiTokens };
 
 export default {
-  install: (app) => {
+  install: (app: any) => {
     app.component("ZButton", ZButton);
     app.component("ZAlert", ZAlert);
     app.component("ZIcon", ZIcon);

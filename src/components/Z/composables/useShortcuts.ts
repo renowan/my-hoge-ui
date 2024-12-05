@@ -1,42 +1,45 @@
-import { createSharedComposable, useActiveElement } from '@vueuse/core'
-import { ref, computed, onMounted } from 'vue'
+import { createSharedComposable, useActiveElement } from "@vueuse/core";
+import { ref, computed, onMounted } from "vue";
+// import type {} from '@vueuse/shared'
 
 export const _useShortcuts = () => {
   const macOS = computed(
     () =>
-      process.client &&
       navigator &&
       navigator.userAgent &&
-      navigator.userAgent.match(/Macintosh;/),
-  )
+      navigator.userAgent.match(/Macintosh;/)
+  );
+  const metaSymbol = ref(" ");
 
-  const metaSymbol = ref(' ')
-
-  const activeElement = useActiveElement()
+  const activeElement = useActiveElement();
   const usingInput = computed(() => {
+    const tagName = activeElement.value?.tagName;
+    const contentEditable = activeElement.value?.contentEditable;
+
     const usingInput = !!(
-      activeElement.value?.tagName === 'INPUT' ||
-      activeElement.value?.tagName === 'TEXTAREA' ||
-      activeElement.value?.contentEditable === 'true'
-    )
+      tagName === "INPUT" ||
+      tagName === "TEXTAREA" ||
+      contentEditable === "true" ||
+      contentEditable === "plaintext-only"
+    );
 
     if (usingInput) {
-      return (activeElement.value?.name as string) || true
+      return ((activeElement.value as any)?.name as string) || true;
     }
 
-    return false
-  })
+    return false;
+  });
 
   onMounted(() => {
-    metaSymbol.value = macOS.value ? '⌘' : 'Ctrl'
-  })
+    metaSymbol.value = macOS.value ? "⌘" : "Ctrl";
+  });
 
   return {
     macOS,
     metaSymbol,
     activeElement,
     usingInput,
-  }
-}
+  };
+};
 
-export const useShortcuts = createSharedComposable(_useShortcuts)
+export const useShortcuts = createSharedComposable(_useShortcuts);
