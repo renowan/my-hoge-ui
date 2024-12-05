@@ -17,3 +17,11 @@ export type DropdownItem = {
   value?: string | number
   [key: string]: unknown
 }
+
+type RouteLocationRaw = {
+  name?: string
+  path?: string
+  params?: Record<string, any>
+  query?: Record<string, any>
+  hash?: string
+}

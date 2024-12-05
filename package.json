@@ -35,6 +35,7 @@
     "vue": "^3.2.47"
   },
   "devDependencies": {
+    "@headlessui/vue": "^1.7.23",
     "@nuxtjs/eslint-config-typescript": "^12.1.0",
     "@nuxtjs/eslint-module": "^4.1.0",
     "@types/lodash": "^4.17.13",

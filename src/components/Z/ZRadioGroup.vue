@@ -26,6 +26,7 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import appConfig from './appConfig'
 import { classNames } from './utils'
 
@@ -105,7 +106,7 @@ const inputClass = computed(() => {
     ui.value.ring.replaceAll('{color}', props.color),
     ui.value.color.replaceAll('{color}', props.color),
     'mr-1',
-    props.disabled || 'cursor-pointer',
+    props.disabled ? '' : 'cursor-pointer',
   )
 })
 
@@ -113,7 +114,7 @@ const pick = computed({
   get() {
     return props.modelValue
   },
-  set(value) {
+  set(value: any) {
     emit('update:modelValue', value)
   },
 })
