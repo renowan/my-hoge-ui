@@ -74,7 +74,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import type { PropType } from 'vue'
-import { classNames } from '@/components/Z/utils/'
+import { classNames } from './utils'
 
 const props = defineProps({
   title: { type: String, required: true },

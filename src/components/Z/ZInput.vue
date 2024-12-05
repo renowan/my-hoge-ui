@@ -45,12 +45,12 @@
 </template>
 
 <script lang="ts">
-import { ref, computed, onMounted, defineComponent } from 'vue'
-import type { PropType } from 'vue'
-import UIcon from './ZIcon.vue'
-import { useFormEvents } from './composables/useFormEvents'
-import { classNames, stringConvert } from './utils'
-import appConfig from './appConfig'
+import { ref, computed, onMounted, defineComponent, watch } from "vue";
+import type { PropType } from "vue";
+import UIcon from "./ZIcon.vue";
+import { useFormEvents } from "./composables/useFormEvents";
+import { classNames, stringConvert } from "./utils";
+import appConfig from "./appConfig";
 
 export default defineComponent({
   components: {
@@ -60,11 +60,11 @@ export default defineComponent({
   props: {
     modelValue: {
       type: [String, Number, Object] as PropType<string | number | null>,
-      default: '',
+      default: "",
     },
     type: {
       type: String,
-      default: 'text',
+      default: "text",
     },
     numeric: {
       type: Boolean,
@@ -76,7 +76,7 @@ export default defineComponent({
     },
     placeholder: {
       type: [String, Number],
-      default: '',
+      default: "",
     },
     unit: {
       type: String,
@@ -135,7 +135,7 @@ export default defineComponent({
       type: String,
       default: () => appConfig.ui.input.default.size,
       validator(value: string) {
-        return Object.keys(appConfig.ui.input.size).includes(value)
+        return Object.keys(appConfig.ui.input.size).includes(value);
       },
     },
     color: {
@@ -143,10 +143,10 @@ export default defineComponent({
       default: () => appConfig.ui.input.default.color,
       validator(value: string) {
         return [
-          '',
+          "",
           ...appConfig.ui.colors,
           ...Object.keys(appConfig.ui.input.color),
-        ].includes(value)
+        ].includes(value);
       },
     },
     variant: {
@@ -156,9 +156,9 @@ export default defineComponent({
         return [
           ...Object.keys(appConfig.ui.input.variant),
           ...Object.values(appConfig.ui.input.color).flatMap((value) =>
-            Object.keys(value),
+            Object.keys(value)
           ),
-        ].includes(value)
+        ].includes(value);
       },
     },
     ui: {
@@ -166,163 +166,175 @@ export default defineComponent({
       default: () => appConfig.ui.input,
     },
   },
-  emits: ['update:modelValue', 'blur', 'enter'],
+  emits: ["update:modelValue", "blur", "enter"],
   setup(props, { emit, slots, attrs }) {
-    const ui = computed(() => appConfig.ui.input)
+    const ui = computed(() => appConfig.ui.input);
 
-    const { emitFormBlur } = useFormEvents()
+    const { emitFormBlur } = useFormEvents();
 
-    const input = ref<HTMLInputElement | null>(null)
-    const unitbox = ref<HTMLInputElement | null>(null)
-    const isFocused = ref(false)
+    const input = ref<HTMLInputElement | null>(null);
+    const unitbox = ref<HTMLInputElement | null>(null);
+    const isFocused = ref(false);
     const displayValue = ref<string>(
-      props.modelValue ? String(props.modelValue) : '',
-    )
+      props.modelValue ? String(props.modelValue) : ""
+    );
     const internalValue = ref<string>(
-      props.modelValue ? String(props.modelValue) : '',
-    )
+      props.modelValue ? String(props.modelValue) : ""
+    );
 
     // modelValueをwatchして、displayValueを更新する
     watch(
       () => props.modelValue,
       (newValue) => {
-        const newValueString = String(newValue || '')
+        const newValueString = String(newValue || "");
         if (
           newValue !== internalValue.value &&
           isNumber(newValueString) &&
           !isFocused.value
         ) {
-          displayValue.value = newValueString
-          internalValue.value = newValueString
+          displayValue.value = newValueString;
+          internalValue.value = newValueString;
           if (props.comma) {
-            displayValue.value = addComma(displayValue.value)
+            displayValue.value = addComma(displayValue.value);
           }
         }
-      },
-    )
+      }
+    );
 
     const autoFocus = () => {
       if (props.autofocus) {
-        input.value?.focus()
+        input.value?.focus();
       }
-    }
+    };
 
-    const onInput = (event: InputEvent) => {
-      const inputElement = event.target as HTMLInputElement
-      const newValue = inputElement.value
-      displayValue.value = newValue
-      internalValue.value = newValue
+    const onInput = (event: Event) => {
+      const inputElement = event.target as HTMLInputElement;
+      const newValue = inputElement.value;
+      displayValue.value = newValue;
+      internalValue.value = newValue;
       if (props.numeric) {
         // 入力条件に合わない場合は、元の値を返す
 
         if (!isNumber(newValue)) {
-          emit('update:modelValue', props.modelValue)
-          return
+          emit("update:modelValue", props.modelValue);
+          return;
         }
 
-        emit('update:modelValue', newValue === '' ? null : Number(newValue))
-        return
+        emit("update:modelValue", newValue === "" ? null : Number(newValue));
+        return;
       }
-      emit('update:modelValue', newValue)
-    }
+      emit("update:modelValue", newValue);
+    };
 
     const isNumber = (value: string) => {
-      const newValue = Number(value)
-      return typeof newValue === 'number' && !isNaN(newValue)
-    }
+      const newValue = Number(value);
+      return typeof newValue === "number" && !isNaN(newValue);
+    };
 
     const addComma = (value: string) => {
-      const [integerPart, decimalPart] = value.split('.')
-      const formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+      const [integerPart, decimalPart] = value.split(".");
+      const formattedInteger = integerPart.replace(
+        /\B(?=(\d{3})+(?!\d))/g,
+        ","
+      );
       return decimalPart
         ? `${formattedInteger}.${decimalPart}`
-        : formattedInteger
-    }
+        : formattedInteger;
+    };
 
     const onBlur = (event: FocusEvent) => {
-      emitFormBlur()
-      emit('blur', event)
+      emitFormBlur();
+      emit("blur", event);
       // 先頭に0がある場合は削除、正しい小数点が後ろにある場合は削除しない
       if (props.numeric) {
         if (input.value === null) {
-          return
+          return;
         }
-        displayValue.value = stringConvert(displayValue.value)
+        displayValue.value = stringConvert(displayValue.value);
 
-        if (displayValue.value === '') {
-          emit('update:modelValue', null)
+        if (displayValue.value === "") {
+          emit("update:modelValue", null);
         } else {
-          emit('update:modelValue', Number(displayValue.value))
+          emit("update:modelValue", Number(displayValue.value));
         }
 
         // emitのあとにcomma処理
         if (props.comma) {
-          displayValue.value = addComma(displayValue.value)
+          displayValue.value = addComma(displayValue.value);
         }
       }
 
-      isFocused.value = false
-    }
+      isFocused.value = false;
+    };
 
     const onFocus = () => {
-      isFocused.value = true
-      displayValue.value = props.modelValue ? String(props.modelValue) : ''
-    }
+      isFocused.value = true;
+      displayValue.value = props.modelValue ? String(props.modelValue) : "";
+    };
 
     const onEnter = () => {
-      emit('enter')
-    }
+      emit("enter");
+    };
 
     const onKeydown = (event: KeyboardEvent) => {
       if (
-        props.type === 'number' &&
+        props.type === "number" &&
         attrs.min !== undefined &&
+        // @ts-ignore
         attrs.min >= 0 &&
-        event.key === '-'
+        event.key === "-"
       ) {
-        event.preventDefault()
+        event.preventDefault();
       }
-    }
+    };
 
     onMounted(() => {
       setTimeout(() => {
-        autoFocus()
-      }, 100)
-    })
+        autoFocus();
+      }, 100);
+    });
 
     const inputClass = computed(() => {
-      const color = props.color || 'gray'
+      const color = props.color || "gray";
       const variant =
+        // @ts-ignore
         ui.value.color?.[color as string]?.[props.variant as string] ||
-        ui.value.variant[props.variant]
+        // @ts-ignore
+        ui.value.variant[props.variant];
 
-      let bgColor = props.disabled ? 'bg-gray-100' : 'bg-white'
-      if (props.variant === 'none') {
-        bgColor = ''
+      let bgColor = props.disabled ? "bg-gray-100" : "bg-white";
+      if (props.variant === "none") {
+        bgColor = "";
       }
 
       return classNames(
         ui.value.base,
         ui.value.rounded,
         ui.value.placeholder,
+        // @ts-ignore
         ui.value.size[props.size],
-        props.padded ? ui.value.padding[props.size] : 'p-0',
-        variant?.replaceAll('{color}', color),
+        // @ts-ignore
+        props.padded ? ui.value.padding[props.size] : "p-0",
+        variant?.replaceAll("{color}", color),
         (isLeading.value || slots.leading) &&
+        // @ts-ignore
           ui.value.leading.padding[props.size],
+        // @ts-ignore
         (isTrailing.value || slots.trailing) &&
+        // @ts-ignore
           ui.value.trailing.padding[props.size],
-        bgColor,
-      )
-    })
+        bgColor
+      );
+    });
 
     const paddingRightStyle = computed(() => {
       if (!props.unit) {
-        return {}
+        return {};
       }
-      const unitWidth = unitbox.value?.offsetWidth + 6 || 0
-      return props.unit?.length > 0 ? { paddingRight: `${unitWidth}px` } : {}
-    })
+      // @ts-ignore
+      const unitWidth = unitbox.value?.offsetWidth + 6 || 0;
+      return props.unit?.length > 0 ? { paddingRight: `${unitWidth}px` } : {};
+    });
 
     const isLeading = computed(() => {
       return (
@@ -330,72 +342,79 @@ export default defineComponent({
         (props.icon && !props.trailing) ||
         (props.loading && !props.trailing) ||
         props.leadingIcon
-      )
-    })
+      );
+    });
 
     const isTrailing = computed(() => {
       return (
         (props.icon && props.trailing) ||
         (props.loading && props.trailing) ||
         props.trailingIcon
-      )
-    })
+      );
+    });
 
     const leadingIconName = computed(() => {
       if (props.loading) {
-        return props.loadingIcon
+        return props.loadingIcon;
       }
 
-      return props.leadingIcon || props.icon
-    })
+      return props.leadingIcon || props.icon;
+    });
 
     const trailingIconName = computed(() => {
       if (props.loading && !isLeading.value) {
-        return props.loadingIcon
+        return props.loadingIcon;
       }
 
-      return props.trailingIcon || props.icon
-    })
+      return props.trailingIcon || props.icon;
+    });
 
     const leadingWrapperIconClass = computed(() => {
       return classNames(
         ui.value.icon.leading.wrapper,
         ui.value.icon.leading.pointer,
-        ui.value.icon.leading.padding[props.size],
-      )
-    })
+        // @ts-ignore
+        ui.value.icon.leading.padding[props.size]
+      );
+    });
 
     const leadingIconClass = computed(() => {
       return classNames(
         ui.value.icon.base,
+        // @ts-ignore
         appConfig.ui.colors.includes(props.color) &&
-          ui.value.icon.color.replaceAll('{color}', props.color),
+          ui.value.icon.color.replaceAll("{color}", props.color),
+        // @ts-ignore
         ui.value.icon.size[props.size],
-        props.loading && 'animate-spin',
-      )
-    })
+        props.loading && "animate-spin"
+      );
+    });
 
     const trailingWrapperIconClass = computed(() => {
       return classNames(
         ui.value.icon.trailing.wrapper,
         ui.value.icon.trailing.pointer,
-        ui.value.icon.trailing.padding[props.size],
-      )
-    })
+        // @ts-ignore
+        ui.value.icon.trailing.padding[props.size]
+      );
+    });
 
     const trailingIconClass = computed(() => {
       return classNames(
         ui.value.icon.base,
+        // @ts-ignore
         appConfig.ui.colors.includes(props.color) &&
-          ui.value.icon.color.replaceAll('{color}', props.color),
+        // @ts-ignore
+          ui.value.icon.color.replaceAll("{color}", props.color),
+        // @ts-ignore
         ui.value.icon.size[props.size],
-        props.loading && !isLeading.value && 'animate-spin',
-      )
-    })
+        props.loading && !isLeading.value && "animate-spin"
+      );
+    });
 
-    displayValue.value = stringConvert(displayValue.value)
+    displayValue.value = stringConvert(displayValue.value);
     if (props.comma) {
-      displayValue.value = addComma(displayValue.value)
+      displayValue.value = addComma(displayValue.value);
     }
 
     return {
@@ -419,7 +438,7 @@ export default defineComponent({
       onFocus,
       paddingRightStyle,
       displayValue,
-    }
+    };
   },
-})
+});
 </script>
