@@ -32,6 +32,7 @@
 </template>
 
 <script lang="ts" setup>
+import { PropType } from 'vue'
 import type { DropdownItem } from './types'
 import appConfig from './appConfig'
 import { classNames } from './utils'
