@@ -32,7 +32,8 @@
     "@vueuse/math": "^12.0.0",
     "date-fns": "^2.30.0",
     "lodash": "^4.17.21",
-    "vue": "^3.2.47"
+    "vue": "^3.2.47",
+    "vue-router": "^4.0.0"
   },
   "devDependencies": {
     "@headlessui/vue": "^1.7.23",
