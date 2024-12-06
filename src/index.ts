@@ -26,7 +26,7 @@ export default {
     app.component("ZInput", ZInput);
     app.component("ZRadio", ZRadio);
     app.component("ZModal", ZModal);
-    app.component("ZModal", ZRadioGroup);
+    app.component("ZRadioGroup", ZRadioGroup);
     app.component("ZDropdown", ZDropdown);
     app.component("ZLinkCustom", ZLinkCustom);
     app.component("ZTooltip", ZTooltip);
