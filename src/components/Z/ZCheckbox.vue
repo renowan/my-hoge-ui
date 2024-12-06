@@ -118,6 +118,7 @@ export default defineComponent({
         ui.value.border,
         ui.value.ring.replaceAll('{color}', props.color),
         ui.value.color.replaceAll('{color}', props.color),
+        // @ts-ignore
         props.disabled || 'cursor-pointer',
       )
     })

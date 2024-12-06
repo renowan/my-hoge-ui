@@ -9,6 +9,7 @@ import ZRadioGroup from "./components/Z/ZRadioGroup.vue";
 import ZDropdown from "./components/Z/ZDropdown.vue";
 import ZLinkCustom from "./components/Z/ZLinkCustom.vue";
 import ZTooltip from "./components/Z/ZTooltip.vue";
+import ZCheckbox from "./components/Z/ZCheckbox.vue";
 import ZKbd from "./components/Z/ZKbd.vue";
 import ZErrorMessage from "./components/Z/ZErrorMessage.vue";
 import * as utils from "./components/Z/utils";
@@ -29,6 +30,7 @@ export default {
     app.component("ZDropdown", ZDropdown);
     app.component("ZLinkCustom", ZLinkCustom);
     app.component("ZTooltip", ZTooltip);
+    app.component("ZCheckbox", ZCheckbox);
     app.component("ZKbd", ZKbd);
     app.component("ZErrorMessage", ZErrorMessage);
   },
