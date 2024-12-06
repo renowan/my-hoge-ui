@@ -7,6 +7,9 @@ import ZRadio from "./components/Z/ZRadio.vue";
 import ZModal from "./components/Z/ZModal.vue";
 import ZRadioGroup from "./components/Z/ZRadioGroup.vue";
 import ZDropdown from "./components/Z/ZDropdown.vue";
+import ZLinkCustom from "./components/Z/ZLinkCustom.vue";
+import ZTooltip from "./components/Z/ZTooltip.vue";
+import ZKbd from "./components/Z/ZKbd.vue";
 import ZErrorMessage from "./components/Z/ZErrorMessage.vue";
 import * as utils from "./components/Z/utils";
 import { zuiTokens } from "./contants/zuiTokens";
@@ -24,6 +27,9 @@ export default {
     app.component("ZModal", ZModal);
     app.component("ZModal", ZRadioGroup);
     app.component("ZDropdown", ZDropdown);
+    app.component("ZLinkCustom", ZLinkCustom);
+    app.component("ZTooltip", ZTooltip);
+    app.component("ZKbd", ZKbd);
     app.component("ZErrorMessage", ZErrorMessage);
   },
 };
