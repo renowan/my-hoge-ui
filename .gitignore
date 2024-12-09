@@ -1,12 +1,32 @@
-node_modules
-*.log
-.nuxt
-nuxt.d.ts
+.component-meta/
+component-meta.*
+
+# Nuxt dev/build outputs
 .output
-dist
-.DS_Store
-.history
-.vercel
-.idea
-.env
 .data
+.nuxt
+.nitro
+.cache
+dist
+
+# Node dependencies
+node_modules
+
+# Logs
+logs
+*.log
+
+# Misc
+.DS_Store
+.fleet
+.idea
+
+# Local env files
+.env
+.env.*
+!.env.example
+
+playground-vue/auto-imports.d.ts
+playground-vue/components.d.ts
+playground-vue/tsconfig.app.tsbuildinfo
+playground-vue/tsconfig.node.tsbuildinfo

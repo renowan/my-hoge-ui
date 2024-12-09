@@ -1,17 +1,22 @@
 import { ref, inject } from 'vue'
 import type { ShallowRef, Component, InjectionKey } from 'vue'
+import type { ComponentProps } from 'vue-component-type-helpers'
 import { createSharedComposable } from '@vueuse/core'
-import type { ComponentProps } from '../types/component'
-import type { Slideover, SlideoverState } from '../types/slideover'
+import type { SlideoverProps } from '../types'
 
-export const slidOverInjectionKey: InjectionKey<ShallowRef<SlideoverState>> = Symbol('nuxt-ui.slideover')
+export interface SlideoverState {
+  component: Component | string
+  props: SlideoverProps
+}
+
+export const slideoverInjectionKey: InjectionKey<ShallowRef<SlideoverState>> = Symbol('nuxt-ui.slideover')
 
 function _useSlideover() {
-  const slideoverState = inject(slidOverInjectionKey)
+  const slideoverState = inject(slideoverInjectionKey)
 
   const isOpen = ref(false)
 
-  function open<T extends Component>(component: T, props?: Slideover & ComponentProps<T>) {
+  function open<T extends Component>(component: T, props?: SlideoverProps & ComponentProps<T>) {
     if (!slideoverState) {
       throw new Error('useSlideover() is called without provider')
     }
@@ -31,6 +36,8 @@ function _useSlideover() {
   }
 
   function reset() {
+    if (!slideoverState) return
+
     slideoverState.value = {
       component: 'div',
       props: {}
@@ -40,7 +47,7 @@ function _useSlideover() {
   /**
    * Allows updating the slideover props
    */
-  function patch<T extends Component = {}>(props: Partial<Slideover & ComponentProps<T>>) {
+  function patch<T extends Component = Record<string, never>>(props: Partial<SlideoverState & ComponentProps<T>>) {
     if (!slideoverState) return
 
     slideoverState.value = {

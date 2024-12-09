@@ -1,4 +1,7 @@
 {
+  "git": {
+    "deploymentEnabled": false
+  },
   "github": {
     "silent": true
   },
@@ -66,11 +69,6 @@
     {
       "source": "/dev/layout/:path(.*)",
       "destination": "/dev/components/:path",
-      "permanent": true
-    },
-    {
-      "source": "/dev/components/:path(.*)",
-      "destination": "/components/:path",
       "permanent": true
     },
     {
