@@ -1,2 +1,0 @@
-import { CapoPlugin } from "/Users/on/Desktop/git/my-hoge-ui/node_modules/.pnpm/@unhead+vue@1.11.13_vue@3.5.13_typescript@5.6.3_/node_modules/@unhead/vue/dist/index.mjs";
-export default import.meta.server ? [CapoPlugin({ track: true })] : [];
