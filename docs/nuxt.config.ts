@@ -1,66 +1,69 @@
 import { createResolver } from '@nuxt/kit'
+import colors from 'tailwindcss/colors'
+import module from '../src/module'
+import { excludeColors } from '../src/runtime/utils/colors'
 import pkg from '../package.json'
 
 const { resolve } = createResolver(import.meta.url)
 
 export default defineNuxtConfig({
-  extends: [
-    process.env.NUXT_UI_PRO_PATH ? resolve(process.env.NUXT_UI_PRO_PATH, 'docs') : process.env.NUXT_GITHUB_TOKEN && ['github:nuxt/ui-pro/docs#v3', { giget: { auth: process.env.NUXT_GITHUB_TOKEN } }]
-  ],
+  // @ts-ignore
+  extends: process.env.NUXT_UI_PRO_PATH
+    ? [
+        process.env.NUXT_UI_PRO_PATH,
+        resolve(process.env.NUXT_UI_PRO_PATH, '.docs')
+      ]
+    : [
+        '@nuxt/ui-pro',
+        process.env.NUXT_GITHUB_TOKEN && ['github:nuxt/ui-pro/.docs#dev', { giget: { auth: process.env.NUXT_GITHUB_TOKEN } }]
+      ].filter(Boolean),
 
   modules: [
-    '../src/module',
-    '@nuxt/ui-pro',
     '@nuxt/content',
+    '@nuxt/fonts',
     '@nuxt/image',
-    '@nuxthub/core',
+    'nuxt-og-image',
+    module,
     '@nuxtjs/plausible',
     '@vueuse/nuxt',
     'nuxt-component-meta',
-    'nuxt-og-image',
-    (_, nuxt) => {
-      nuxt.hook('components:dirs', (dirs) => {
-        dirs.unshift({ path: resolve('./app/components/content/examples'), pathPrefix: false, prefix: '', global: true })
-      })
-    }
+    'nuxt-cloudflare-analytics'
   ],
 
-  app: {
-    head: {
-      // LemonSqueezy affiliate
-      script: [{
-        key: 'lmsqueezy-config',
-        innerHTML: 'window.lemonSqueezyAffiliateConfig = { store: "nuxt" };'
-      }, {
-        key: 'lmsqueezy',
-        src: 'https://lmsqueezy.com/affiliate.js',
-        defer: true
-      }]
-    },
-    rootAttrs: {
-      'vaul-drawer-wrapper': '',
-      'class': 'bg-[var(--ui-bg)]'
-    }
-  },
-
   site: {
-    url: 'https://ui3.nuxt.dev'
+    url: 'https://ui.nuxt.com'
   },
 
   content: {
-    build: {
-      markdown: {
-        highlight: {
-          langs: ['bash', 'ts', 'typescript', 'diff', 'vue', 'json', 'yml', 'css', 'mdc']
-        }
-      }
+    highlight: {
+      langs: [
+        'postcss',
+        'mdc'
+      ]
+    },
+    sources: {
+      pro: process.env.NUXT_UI_PRO_PATH
+        ? {
+            prefix: '/pro',
+            driver: 'fs',
+            base: resolve(process.env.NUXT_UI_PRO_PATH, '.docs/content/pro')
+          }
+        : process.env.NUXT_GITHUB_TOKEN
+          ? {
+              prefix: '/pro',
+              driver: 'github',
+              repo: 'nuxt/ui-pro',
+              branch: 'dev',
+              dir: '.docs/content/pro',
+              token: process.env.NUXT_GITHUB_TOKEN || ''
+            }
+          : undefined
     }
   },
 
-  mdc: {
-    highlight: {
-      noApiRoute: false
-    }
+  ui: {
+    global: true,
+    safelistColors: excludeColors(colors)
   },
 
   runtimeConfig: {
@@ -70,82 +73,77 @@ export default defineNuxtConfig({
   },
 
   routeRules: {
-    '/': { redirect: '/getting-started', prerender: false },
-    '/getting-started/installation': { redirect: '/getting-started/installation/nuxt', prerender: false },
-    '/getting-started/icons': { redirect: '/getting-started/icons/nuxt', prerender: false },
-    '/getting-started/color-mode': { redirect: '/getting-started/color-mode/nuxt', prerender: false },
-    '/getting-started/i18n': { redirect: '/getting-started/i18n/nuxt', prerender: false },
-    '/composables': { redirect: '/composables/define-shortcuts', prerender: false },
-    '/components': { redirect: '/components/app', prerender: false }
+    '/components': { redirect: '/components/accordion', prerender: false }
   },
 
-  future: {
-    compatibilityVersion: 4
-  },
-
-  compatibilityDate: '2024-07-09',
+  compatibilityDate: '2024-07-23',
 
   nitro: {
     prerender: {
       routes: [
+        '/',
         '/getting-started',
-        '/api/countries.json',
-        '/api/locales.json'
-        // '/api/releases.json',
-        // '/api/pulls.json'
+        '/api/search.json',
+        '/api/releases.json',
+        '/api/pulls.json'
       ],
-      crawlLinks: true,
-      autoSubfolderIndex: false
-    },
-    cloudflare: {
-      pages: {
-        routes: {
-          exclude: [
-            '/components/*',
-            '/getting-started/*',
-            '/composables/*'
-          ]
-        }
-      }
+      ignore: !process.env.NUXT_UI_PRO_PATH && !process.env.NUXT_GITHUB_TOKEN ? ['/pro'] : []
     }
   },
 
-  hub: {
-    cache: true
+  vite: {
+    optimizeDeps: {
+      include: ['date-fns']
+    }
+  },
+
+  typescript: {
+    strict: false
+  },
+
+  hooks: {
+    // Related to https://github.com/nuxt/nuxt/pull/22558
+    'components:extend': (components) => {
+      components.forEach((component) => {
+        if (component.shortPath.includes(process.env.NUXT_UI_PRO_PATH || '@nuxt/ui-pro')) {
+          component.global = true
+        } else if (component.global) {
+          component.global = 'sync'
+        }
+      })
+    }
+  },
+
+  cloudflareAnalytics: {
+    token: '1e2b0c5e9a214f0390b9b94e043d8d4c',
+    scriptPath: false
   },
 
   componentMeta: {
     exclude: [
       '@nuxt/content',
-      '@nuxt/icon',
-      '@nuxt/image',
+      '@nuxt/ui-templates',
       '@nuxtjs/color-mode',
       '@nuxtjs/mdc',
-      '@nuxtjs/plausible',
       'nuxt/dist',
       'nuxt-og-image',
-      resolve('./app/components'),
-      process.env.NUXT_UI_PRO_PATH ? resolve(process.env.NUXT_UI_PRO_PATH, 'docs', 'components') : '.c12'
+      'nuxt-site-config',
+      resolve('./components'),
+      process.env.NUXT_UI_PRO_PATH ? resolve(process.env.NUXT_UI_PRO_PATH, '.docs', 'components') : '.c12'
     ],
     metaFields: {
       type: false,
       props: true,
       slots: true,
-      events: true,
+      events: false,
       exposed: false
     }
   },
 
   icon: {
-    customCollections: [{
-      prefix: 'custom',
-      dir: resolve('./app/assets/icons')
-    }],
     clientBundle: {
-      scan: true,
-      includeCustomCollections: true
-    },
-    provider: 'iconify'
+      scan: true
+    }
   },
 
   image: {

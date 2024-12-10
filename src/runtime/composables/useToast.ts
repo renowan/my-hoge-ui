@@ -1,64 +1,43 @@
+import type { Notification } from '../types/notification'
 import { useState } from '#imports'
-import type { ToastProps } from '../types'
-
-export interface Toast extends Omit<ToastProps, 'defaultOpen'> {
-  id: string | number
-  click?: (toast: Toast) => void
-}
 
 export function useToast() {
-  const toasts = useState<Toast[]>('toasts', () => [])
+  const notifications = useState<Notification[]>('notifications', () => [])
 
-  function add(toast: Partial<Toast>): Toast {
+  function add(notification: Partial<Notification>) {
     const body = {
       id: new Date().getTime().toString(),
-      open: true,
-      ...toast
+      ...notification
     }
 
-    const index = toasts.value.findIndex((t: Toast) => t.id === body.id)
+    const index = notifications.value.findIndex((n: Notification) => n.id === body.id)
     if (index === -1) {
-      toasts.value.push(body)
+      notifications.value.push(body as Notification)
     }
-
-    toasts.value = toasts.value.slice(-5)
 
     return body
   }
 
-  function update(id: string | number, toast: Omit<Partial<Toast>, 'id'>) {
-    const index = toasts.value.findIndex((t: Toast) => t.id === id)
-    if (index !== -1) {
-      toasts.value[index] = {
-        ...toasts.value[index] as Toast,
-        ...toast
-      }
-    }
+  function remove(id: string) {
+    notifications.value = notifications.value.filter((n: Notification) => n.id !== id)
   }
 
-  function remove(id: string | number) {
-    const index = toasts.value.findIndex((t: Toast) => t.id === id)
+  function update(id: string, notification: Partial<Notification>) {
+    const index = notifications.value.findIndex((n: Notification) => n.id === id)
     if (index !== -1) {
-      toasts.value[index] = {
-        ...toasts.value[index] as Toast,
-        open: false
-      }
+      const previous = notifications.value[index]
+      notifications.value.splice(index, 1, { ...previous, ...notification })
     }
-
-    setTimeout(() => {
-      toasts.value = toasts.value.filter((t: Toast) => t.id !== id)
-    }, 200)
   }
 
   function clear() {
-    toasts.value = []
+    notifications.value = []
   }
 
   return {
-    toasts,
     add,
-    update,
     remove,
+    update,
     clear
   }
 }

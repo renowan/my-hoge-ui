@@ -1,32 +1,34 @@
 import { computed } from 'vue'
+import { get, parseConfigValue } from '../utils'
 import { defineNuxtPlugin, useAppConfig, useNuxtApp, useHead } from '#imports'
-// FIXME: https://github.com/nuxt/module-builder/issues/141#issuecomment-2078248248
-import type {} from '#app'
+import colors from '#tailwind-config/theme/colors'
 
 export default defineNuxtPlugin(() => {
   const appConfig = useAppConfig()
   const nuxtApp = useNuxtApp()
 
-  const shades = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950]
-
-  function generateShades(key: string, value: string) {
-    return `${shades.map(shade => `--ui-color-${key}-${shade}: var(--color-${value}-${shade});`).join('\n  ')}`
-  }
-  function generateColor(key: string, shade: number) {
-    return `--ui-${key}: var(--ui-color-${key}-${shade});`
-  }
-
   const root = computed(() => {
-    const { neutral, ...colors } = appConfig.ui.colors
+    const primary: Record<string, string> | undefined = get(colors, appConfig.ui.primary)
+    const gray: Record<string, string> | undefined = get(colors, appConfig.ui.gray)
+
+    if (!primary) {
+      console.warn(`[@nuxt/ui] Primary color '${appConfig.ui.primary}' not found in Tailwind config`)
+    }
+    if (!gray) {
+      console.warn(`[@nuxt/ui] Gray color '${appConfig.ui.gray}' not found in Tailwind config`)
+    }
 
     return `:root {
-  ${Object.entries(appConfig.ui.colors).map(([key, value]: [string, string]) => generateShades(key, value)).join('\n  ')}
+${Object.entries(primary || colors.green).map(([key, value]) => `--color-primary-${key}: ${parseConfigValue(value)};`).join('\n')}
+--color-primary-DEFAULT: var(--color-primary-500);
 
-  ${Object.keys(colors).map(key => generateColor(key, 500)).join('\n  ')}
+${Object.entries(gray || colors.cool).map(([key, value]) => `--color-gray-${key}: ${parseConfigValue(value)};`).join('\n')}
 }
+
 .dark {
-  ${Object.keys(colors).map(key => generateColor(key, 400)).join('\n  ')}
-}`
+  --color-primary-DEFAULT: var(--color-primary-400);
+}
+`
   })
 
   // Head
@@ -34,8 +36,7 @@ export default defineNuxtPlugin(() => {
     style: [{
       innerHTML: () => root.value,
       tagPriority: -2,
-      id: 'nuxt-ui-colors',
-      type: 'text/css'
+      id: 'nuxt-ui-colors'
     }]
   }
 

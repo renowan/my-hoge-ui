@@ -1,13 +1,8 @@
 import { ref, inject } from 'vue'
 import type { ShallowRef, Component, InjectionKey } from 'vue'
-import type { ComponentProps } from 'vue-component-type-helpers'
 import { createSharedComposable } from '@vueuse/core'
-import type { ModalProps } from '../types'
-
-export interface ModalState {
-  component: Component | string
-  props: ModalProps
-}
+import type { ComponentProps } from '../types/component'
+import type { Modal, ModalState } from '../types/modal'
 
 export const modalInjectionKey: InjectionKey<ShallowRef<ModalState>> = Symbol('nuxt-ui.modal')
 
@@ -16,7 +11,7 @@ function _useModal() {
 
   const isOpen = ref(false)
 
-  function open<T extends Component>(component: T, props?: ModalProps & ComponentProps<T>) {
+  function open<T extends Component>(component: T, props?: Modal & ComponentProps<T>) {
     if (!modalState) {
       throw new Error('useModal() is called without provider')
     }
@@ -36,8 +31,6 @@ function _useModal() {
   }
 
   function reset() {
-    if (!modalState) return
-
     modalState.value = {
       component: 'div',
       props: {}
@@ -47,7 +40,7 @@ function _useModal() {
   /**
    * Allows updating the modal props
    */
-  function patch<T extends Component = Record<string, never>>(props: Partial<ModalProps & ComponentProps<T>>) {
+  function patch<T extends Component = {}>(props: Partial<Modal & ComponentProps<T>>) {
     if (!modalState) return
 
     modalState.value = {
