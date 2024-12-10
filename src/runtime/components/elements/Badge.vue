@@ -6,7 +6,7 @@
 
     <slot>
       <span v-if="label">
-        {{ label }}
+        {{ label }}**
       </span>
     </slot>
 
