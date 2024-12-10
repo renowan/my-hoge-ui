@@ -58,7 +58,7 @@ export default defineNuxtModule<ModuleOptions>({
     }
   },
   defaults: {
-    prefix: 'U',
+    prefix: 'Z',
     safelistColors: ['primary'],
     disableGlobalStyles: false
   },
