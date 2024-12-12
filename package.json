@@ -1,10 +1,10 @@
 {
-  "name": "@nuxt/ui",
+  "name": "zui",
   "description": "A UI Library for Modern Web Apps, powered by Vue & Tailwind CSS.",
   "version": "2.20.0",
   "packageManager": "pnpm@9.15.0",
-  "repository": "nuxt/ui",
-  "homepage": "https://ui.nuxt.com",
+  "repository": "zui",
+  "homepage": "https://dev-zeroboard-ui-design-app.zeroboard-dev.jp/",
   "type": "module",
   "license": "MIT",
   "exports": {
@@ -79,7 +79,7 @@
     "zod": "^3.23.8"
   },
   "resolutions": {
-    "@nuxt/ui": "workspace:*",
+    "zui": "workspace:*",
     "@nuxt/content": "2.13.2",
     "@nuxtjs/mdc": "0.9.0",
     "chokidar": "3.6.0",
