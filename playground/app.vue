@@ -6,7 +6,7 @@
       </template>
 
       <p class="text-gray-500 dark:text-gray-400">
-        Try your components here!
+        Try your components here!xx
       </p>
     </UCard>
   </UContainer>
