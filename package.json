@@ -11,6 +11,10 @@
     ".": {
       "import": "./dist/module.mjs",
       "require": "./dist/module.cjs"
+    },
+    "./utils": {
+      "import": "./dist/runtime/utils/index.mjs",
+      "require": "./dist/runtime/utils/index.cjs"
     }
   },
   "main": "./dist/module.cjs",
