@@ -12,12 +12,14 @@
       "import": "./dist/module.mjs",
       "require": "./dist/module.cjs"
     },
-    "./string": "./dist/runtime/utils/string.js"
+    "./utils/string": "./dist/runtime/utils/string.js",
+    "./static/css/z-table.css": "./dist/runtime/static/css/z-table.css"
   },
   "main": "./dist/module.cjs",
   "types": "./dist/types.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "src/assets"
   ],
   "scripts": {
     "build": "nuxt-module-build build",
