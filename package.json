@@ -13,7 +13,10 @@
       "require": "./dist/module.cjs"
     },
     "./utils/string": "./dist/runtime/utils/string.js",
-    "./static/css/z-table.css": "./dist/runtime/static/css/z-table.css"
+    "./static/css/z-table.css": "./dist/runtime/static/css/z-table.css",
+    "./static/css/fontello-over-write.css": "./dist/runtime/static/css/fontello-over-write.css",
+    "./static/fontello/css/fontello.css": "./dist/runtime/static/fontello/css/fontello.css",
+    "./static/fontello/css/animation.css": "./dist/runtime/static/fontello/css/animation.css"
   },
   "main": "./dist/module.cjs",
   "types": "./dist/types.d.ts",
