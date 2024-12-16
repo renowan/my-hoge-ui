@@ -13,6 +13,7 @@
       "require": "./dist/module.cjs"
     },
     "./utils/string": "./dist/runtime/utils/string.js",
+    "./utils/zuiColorTokens": "./dist/runtime/utils/zuiColorTokens.js",
     "./static/css/z-table.css": "./dist/runtime/static/css/z-table.css",
     "./static/css/fontello-over-write.css": "./dist/runtime/static/css/fontello-over-write.css",
     "./static/fontello/css/fontello.css": "./dist/runtime/static/fontello/css/fontello.css",
