@@ -10,6 +10,7 @@
     </ZAlert>
     <div class="mb-4">
       <ZFormLabel required>hoho</ZFormLabel>
+      <ZLink to="/">link</ZLink>
     </div>
     <div class="mb-4">
       <ZButton class="mr-1" color="white">white</ZButton>
