@@ -39,7 +39,7 @@
 </template>
 
 <script lang="ts">
-import isEqual from 'lodash/isEqual'
+// import isEqual from 'lodash/isEqual'
 import { defineComponent } from 'vue'
 import { NuxtLink } from '#components'
 
@@ -81,9 +81,9 @@ export default defineComponent({
         isExactActive,
       }: { isActive: boolean; isExactActive: boolean },
     ) {
-      if (props.exactQuery && !isEqual(route.query, $route.query)) {
-        return props.inactiveClass
-      }
+      // if (props.exactQuery && !isEqual(route.query, $route.query)) {
+      //   return props.inactiveClass
+      // }
       if (props.exactHash && route.hash !== $route.hash) {
         return props.inactiveClass
       }
