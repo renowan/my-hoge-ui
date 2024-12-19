@@ -4,17 +4,22 @@ import defaultColors from 'tailwindcss/colors.js'
 import { omit } from './lodash'
 
 const colorsToExclude = [
-  'inherit',
-  'transparent',
-  'current',
+  'primary',
+  'secondary',
+  'danger',
+  'caution',
+  'success',
+  // 'inherit',
+  // 'transparent',
+  // 'current',
   'white',
   'black',
-  'slate',
+  // 'slate',
   'gray',
-  'zinc',
-  'neutral',
-  'stone',
-  'cool'
+  // 'zinc',
+  // 'neutral',
+  // 'stone',
+  // 'cool'
 ]
 
 const safelistByComponent: Record<string, (colors: string) => TWConfig['safelist']> = {

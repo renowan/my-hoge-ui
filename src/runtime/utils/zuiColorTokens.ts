@@ -90,6 +90,18 @@ export const getZuiColorTokens = () => {
       800: globalTokens.green[800],
       900: globalTokens.green[900],
     },
+    green: {
+      50: '#F5FAF9',
+      100: '#E0F2F1',
+      200: '#B2DFDB',
+      300: '#80CBC4',
+      400: '#4DB6AC',
+      500: '#007C72',
+      600: '#00696A',
+      700: '#005059',
+      800: '#003A47',
+      900: '#002A3B',
+    },
     secondary: {
       default: globalTokens.teal[500],
     },

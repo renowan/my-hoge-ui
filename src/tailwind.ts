@@ -22,6 +22,7 @@ export default function installTailwind(
     // @ts-ignore
     nuxt.options.appConfig.ui = {
       primary: 'green',
+      danger: 'red',
       gray: 'cool',
       colors,
       strategy: 'merge'

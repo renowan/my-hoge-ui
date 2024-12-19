@@ -90,5 +90,9 @@ export function looseToNumber(val: any): any {
   return Number.isNaN(n) ? val : n
 }
 
+export function classNames(...classes: unknown[string]) {
+  return classes.filter(Boolean).join(' ')
+}
+
 export * from './lodash'
 export * from './link'
