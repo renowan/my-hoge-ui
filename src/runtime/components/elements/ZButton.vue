@@ -37,11 +37,11 @@
 <script lang="ts">
 import { computed, defineComponent, useSlots } from 'vue'
 import type { PropType } from 'vue'
+import ZLink from './ZLink.vue'
 import { classNames } from '../../utils'
 import { omit } from '../../utils/lodash'
+import ZIcon from './ZIcon.vue'
 import appConfig from '../appConfig'
-import ZLink from './Link.vue'
-import ZIcon from './Icon.vue'
 
 type ColorKey = keyof typeof appConfig.ui.button.color
 type VariantKey = keyof typeof appConfig.ui.button.variant
