@@ -39,7 +39,7 @@
 </template>
 
 <script lang="ts">
-import isEqual from 'lodash/isEqual'
+import { isEqual } from 'lodash/isEqual.js'
 import { defineComponent } from 'vue'
 import { NuxtLink } from '#components'
 
