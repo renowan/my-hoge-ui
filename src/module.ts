@@ -99,7 +99,7 @@ export default defineNuxtModule<ModuleOptions>({
     })
 
     addPlugin({
-      src: resolve(runtimeDir, 'plugins', 'formDefaults')
+      src: resolve(runtimeDir, 'plugins', 'i18nLabel')
     })
 
     // Components
