@@ -10,7 +10,7 @@
   "exports": {
     ".": {
       "import": "./dist/module.mjs",
-      "require": "./dist/module.cjs",
+      "require": "./dist/module.cjs"
     },
     "./components/ZFormLabel": "./dist/runtime/components/elements/ZFormLabel.vue",
     "./utils/string": "./dist/runtime/utils/string.js",
