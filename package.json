@@ -12,7 +12,11 @@
       "types": "./dist/types.d.ts",
       "import": "./dist/module.mjs"
     },
-    "./components": "./dist/runtime/components/index.js",
+
+    "./components": {
+      "types": "./dist/runtime/components/index.d.ts",
+      "import": "./dist/runtime/components/index.js"
+    },
     "./components/*": "./dist/runtime/components/*",
     "./utils/string": "./dist/runtime/utils/string.js",
     "./utils/zuiColorTokens": "./dist/runtime/utils/zuiColorTokens.js",
