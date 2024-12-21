@@ -1,4 +1,6 @@
 import { createRequire } from 'node:module'
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { defineNuxtModule, installModule, addComponentsDir, addImportsDir, createResolver, addPlugin } from '@nuxt/kit'
 import { name, version } from '../package.json'
 import createTemplates from './templates'
@@ -104,14 +106,22 @@ export default defineNuxtModule<ModuleOptions>({
       src: resolve(runtimeDir, 'plugins', 'slideovers')
     })
 
+    nuxt.hook('components:dirs', (dirs) => {
+      dirs.push({
+        path: resolve('./runtime/components/elements'),
+        pattern: '*.vue',
+        prefix: options.prefix
+      })
+    })
+
     // Components
 
-    addComponentsDir({
-      path: resolve(runtimeDir, 'components', 'elements'),
-      prefix: options.prefix,
-      global: options.global,
-      watch: false
-    })
+    // addComponentsDir({
+    //   path: resolve(runtimeDir, 'components', 'elements'),
+    //   prefix: options.prefix,
+    //   global: options.global,
+    //   watch: false
+    // })
     // addComponentsDir({
     //   path: resolve(runtimeDir, 'components', 'forms'),
     //   prefix: options.prefix,

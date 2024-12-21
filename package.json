@@ -9,17 +9,23 @@
   "license": "MIT",
   "exports": {
     ".": {
-      "import": "./dist/module.mjs",
-      "require": "./dist/module.cjs"
+      "types": "./dist/types.d.ts",
+      "import": "./dist/module.mjs"
     },
-    "./utils/string": "./dist/runtime/utils/string.js",
-    "./utils/zuiColorTokens": "./dist/runtime/utils/zuiColorTokens.js",
-    "./static/css/z-table.css": "./dist/runtime/static/css/z-table.css",
-    "./static/css/fontello-over-write.css": "./dist/runtime/static/css/fontello-over-write.css",
-    "./static/fontello/css/fontello.css": "./dist/runtime/static/fontello/css/fontello.css",
-    "./static/fontello/css/animation.css": "./dist/runtime/static/fontello/css/animation.css"
+    "./components": "./dist/runtime/components/index.js",
+    "./components/*": "./dist/runtime/components/*"
   },
-  "main": "./dist/module.cjs",
+  "typesVersions": {
+    "*": {
+      "components": [
+        "./dist/runtime/components/index.d.ts"
+      ],
+      "components/*": [
+        "./dist/runtime/components/*"
+      ]
+    }
+  },
+  "main": "./dist/module.mjs",
   "types": "./dist/types.d.ts",
   "files": [
     "dist",
