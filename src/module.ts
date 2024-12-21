@@ -92,6 +92,8 @@ export default defineNuxtModule<ModuleOptions>({
     await installModule('@nuxtjs/color-mode', { classSuffix: '' })
     await installTailwind(options, nuxt, resolve)
 
+    nuxt.options.css.push(resolve('./runtime/styles/base.css'))
+
     // Plugins
 
     addPlugin({

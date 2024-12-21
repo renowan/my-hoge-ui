@@ -17,7 +17,6 @@
       "types": "./dist/runtime/components/index.d.ts",
       "import": "./dist/runtime/components/index.js"
     },
-    "./components/*": "./dist/runtime/components/*",
     "./utils/string": "./dist/runtime/utils/string.js",
     "./utils/zuiColorTokens": "./dist/runtime/utils/zuiColorTokens.js",
     "./static/css/z-table.css": "./dist/runtime/static/css/z-table.css",
