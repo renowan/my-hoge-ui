@@ -14,6 +14,8 @@
 </template>
 
 <script lang="ts" setup>
+import appGlobalConfig from '#build/app.config'
+
 withDefaults(
   defineProps<{
     optional?: boolean
@@ -24,8 +26,8 @@ withDefaults(
   {
     optional: false,
     required: false,
-    optionalLabel: 'optional',
-    requiredLabel: 'required',
+    optionalLabel: appGlobalConfig.ui?.defaultLabel?.formLabel?.optionalLabel || 'optional',
+    requiredLabel: appGlobalConfig.ui?.defaultLabel?.formLabel?.requiredLabel || 'required',
   },
 )
 </script>

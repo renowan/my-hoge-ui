@@ -21,6 +21,12 @@ type UI = {
   colors?: string[]
   strategy?: Strategy
   [key: string]: any
+  defaultLabel?: {
+    formLabel?: {
+      optionalLabel?: string
+      requiredLabel?: string
+    }
+  }
 } & DeepPartial<typeof config, string | number | boolean>
 
 declare module '@nuxt/schema' {
