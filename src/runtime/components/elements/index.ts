@@ -1,2 +1,5 @@
 export { default as ZFormLabel } from './ZFormLabel.vue'
 export { default as ZAlert } from './ZAlert.vue'
+export { default as ZButton } from './ZButton.vue'
+export { default as ZIcon } from './ZIcon.vue'
+export { default as ZLink } from './ZLink.vue'
